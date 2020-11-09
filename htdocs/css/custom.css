@@ -1,0 +1,10 @@
+.code-block {
+    background: #333;
+    color: #fff;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
