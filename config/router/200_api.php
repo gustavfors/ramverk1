@@ -7,7 +7,7 @@ return [
         [
             "info" => "api",
             "mount" => "api",
-            "handler" => "\Anax\Controller\ApiController",
+            "handler" => "\Gufo\Controller\ApiController",
         ],
     ]
 ];

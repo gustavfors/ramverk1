@@ -7,7 +7,7 @@ return [
         [
             "info" => "Validate IP Addresses.",
             "mount" => "validate",
-            "handler" => "\Anax\Controller\IpController",
+            "handler" => "\Gufo\Controller\IpController",
         ],
     ]
 ];

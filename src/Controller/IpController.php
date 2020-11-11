@@ -1,6 +1,6 @@
 <?php
 
-namespace Anax\Controller;
+namespace Gufo\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
@@ -46,6 +46,11 @@ class IpController implements ContainerInjectableInterface
 
     public function ipActionGet()
     {
+
+        // $validator = \Gufo\validator\IpValidator::test();
+
+        // die(var_dump($validator));
+
         $page = $this->di->get("page");
 
         $page->add('validate/ip/index');
@@ -53,31 +58,17 @@ class IpController implements ContainerInjectableInterface
         return $page->render([
             "title" => "IP Validator",
         ]);
-
-        // return "cow";
     }
 
     public function ipActionPost()
     {
         if ($this->di->request->getPost('address')) {
-            $page = $this->di->get("page");
-
-            // $url = "{$this->di->request->getBaseUrl()}/api/ip";
+            
             $url = $this->di->get("url")->create("api/ip");
-
             $data = array('address' => $this->di->request->getPost('address'));
-            $options = array(
-                'http' => array(
-                    'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                    'method'  => 'POST',
-                    'content' => http_build_query($data)
-                )
-            );
+            $result = \Gufo\RequestMaker\MakeRequest::post($url, $data);
 
-            $context  = stream_context_create($options);
-            $result = file_get_contents($url, false, $context);
-
-            $result = json_decode($result);
+            $page = $this->di->get("page");
 
             $page->add('validate/ip/show', [
                 "result" => $result
