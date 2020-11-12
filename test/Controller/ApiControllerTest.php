@@ -46,41 +46,11 @@ class ApiControllerTest extends TestCase
         $this->assertEquals($res, "no address specified.");
     }
 
-    public function testIpActionPostAddressIPv4()
+    public function testIpActionPostAddress()
     {
         $this->di->request->setPost('address', '194.47.150.9');
 
-        $this->di->url->setBaseUrl('http://localhost:8080/dbwebb/ramverk1/me/redovisa/htdocs/');
-
         $res = $this->controller->ipActionPost();
-
-        $this->assertEquals('IPv4', $res[0]['protocol']);
-
-        $this->assertInternalType("array", $res);
-    }
-
-    public function testIpActionPostAddressIPv6()
-    {
-        $this->di->request->setPost('address', '2001:0db8:85a3:0000:0000:8a2e:0370:7334');
-
-        $this->di->url->setBaseUrl('http://localhost:8080/dbwebb/ramverk1/me/redovisa/htdocs/');
-
-        $res = $this->controller->ipActionPost();
-
-        $this->assertEquals('IPv6', $res[0]['protocol']);
-
-        $this->assertInternalType("array", $res);
-    }
-
-    public function testIpActionPostAddressInvalid()
-    {
-        $this->di->request->setPost('address', 'dsadsafgasgfasf');
-
-        $this->di->url->setBaseUrl('http://localhost:8080/dbwebb/ramverk1/me/redovisa/htdocs/');
-
-        $res = $this->controller->ipActionPost();
-
-        $this->assertEquals(null, $res[0]['protocol']);
 
         $this->assertInternalType("array", $res);
     }

@@ -4,6 +4,7 @@ namespace Gufo\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
+use Gufo\Model\IpAddress;
 
 /**
  * A sample controller to show how a controller class can be implemented.
@@ -35,10 +36,14 @@ class IpController implements ContainerInjectableInterface
 
     public function ipActionPost()
     {
-        $ipAddress = new \Gufo\Model\IpAddress($this->di->request->getPost('address'));
+        if ($this->di->request->getPost('address')) {
+            $ipAddress = new IpAddress($this->di->request->getPost('address'));
 
-        $this->page->add('validate/ip/show', ["data" => $ipAddress->data()]);
-      
-        return $this->page->render(["title" => "IP Validator"]);
+            $this->page->add('validate/ip/show', ["data" => $ipAddress->data()]);
+
+            return $this->page->render(["title" => "IP Validator"]);
+        }
+
+        return "no address specified.";
     }
 }

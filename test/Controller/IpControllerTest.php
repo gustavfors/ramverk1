@@ -57,8 +57,6 @@ class IpControllerTest extends TestCase
     {
         $this->di->request->setPost('address', '194.47.150.9');
 
-        $this->di->url->setBaseUrl('http://localhost:8080/dbwebb/ramverk1/me/redovisa/htdocs/');
-
         $res = $this->controller->ipActionPost();
 
         $this->assertInstanceOf(ResponseUtility::class, $res);

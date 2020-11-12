@@ -20,7 +20,6 @@ class IpAddress
         $this->data['ipAddress'] = $ipAddress;
 
         if ($this->validate()) {
-
             $this->protocol();
 
             $this->domain();
@@ -32,10 +31,11 @@ class IpAddress
     public function validate()
     {
         if (filter_var($this->data['ipAddress'], FILTER_VALIDATE_IP)) {
-            return $this->data['valid'] = true;
+            $this->data['valid'] = true;
         } else {
-            return $this->data['valid'] = false;
+            $this->data['valid'] = false;
         }
+        return $this->data['valid'];
     }
 
     public function protocol()
@@ -44,9 +44,8 @@ class IpAddress
             $this->data['protocol'] = 'IPV6';
         } else if (filter_var($this->data['ipAddress'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
             $this->data['protocol'] = 'IPV4';
-        } else {
-            $this->data['protocol'] = 'unknown';
         }
+        return $this->data['protocol'];
     }
 
     public function domain()
@@ -72,5 +71,4 @@ class IpAddress
     {
         return $this->data;
     }
-
 }
