@@ -1,6 +1,6 @@
 <?php
 
-namespace Anax\Controller;
+namespace Gufo\Controller;
 
 use Anax\DI\DIFactoryConfig;
 use Anax\Response\ResponseUtility;

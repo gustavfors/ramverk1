@@ -46,10 +46,8 @@ class ApiController implements ContainerInjectableInterface
 
     public function ipActionPost()
     {
-        if ($this->di->request->getPost('address')) {
-            return \Gufo\Validator\IpValidator::test($this->di->request->getPost('address'));
-        }
-        
-        return "no address specified.";
+        $ipAddress = new \Gufo\Model\IpAddress($this->di->request->getPost('address'));
+       
+        return [$ipAddress->data()];   
     }
 }
