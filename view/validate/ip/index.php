@@ -9,14 +9,14 @@ namespace Anax\View;
 <h3>Text based result</h3>
 <form action="" method="POST">
     <label for="address">IP Address:</label>
-    <input type="text" id="address" name="address" value="194.47.150.9">
+    <input type="text" id="address" name="address" value="<?= $userIp; ?>">
     <button type="submit">Validate</button>
 </form>
 
 <h3>JSON based result</h3>
 <form action="<?= $this->di->request->getBaseUrl(); ?>/api/ip" method="POST">
     <label for="address">IP Address:</label>
-    <input type="text" id="address" name="address" value="194.47.150.9">
+    <input type="text" id="address" name="address" value="<?= $userIp; ?>">
     <button type="submit">Validate</button>
 </form>
 

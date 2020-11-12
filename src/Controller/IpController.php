@@ -29,8 +29,14 @@ class IpController implements ContainerInjectableInterface
 
     public function ipActionGet()
     {
-        $this->page->add('validate/ip/index');
-      
+        $userIp = "127.0.0.1";
+
+        if (isset($_SERVER['REMOTE_ADDR'])) {
+            $userIp = $_SERVER['REMOTE_ADDR'];
+        }
+
+        $this->page->add('validate/ip/index', ['userIp' => $userIp]);
+
         return $this->page->render(["title" => "IP Validator"]);
     }
 
