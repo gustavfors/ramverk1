@@ -14,7 +14,7 @@ class Weather
     public function __construct($lat, $lon)
     {
         $this->lat = $lat;
-        $this->long = $lon;
+        $this->lon = $lon;
 
         $this->forecast();
         $this->history();
@@ -25,7 +25,7 @@ class Weather
         $apiKey = file_get_contents(ANAX_INSTALL_PATH . "/weatherapi.txt");
 
         $res = MCurl::get([
-            "https://api.openweathermap.org/data/2.5/onecall?lat=56.16156&lon=15.58661&units=metric&exclude=hourly,minutely,current&appid={$apiKey}"
+            "https://api.openweathermap.org/data/2.5/onecall?lat={$this->lat}&lon={$this->lon}&units=metric&exclude=hourly,minutely,current&appid={$apiKey}"
         ]);
 
         foreach($res[0]->daily as $day) {
@@ -47,8 +47,11 @@ class Weather
         $apiKey = file_get_contents(ANAX_INSTALL_PATH . "/weatherapi.txt");
 
         $res = MCurl::get([
-            "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-1 day')."&units=metric&appid={$apiKey}",
-            "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-2 day')."&units=metric&appid={$apiKey}",
+            "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat={$this->lat}&lon={$this->lon}&dt=".strtotime('-1 day')."&units=metric&appid={$apiKey}",
+            // "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-2 day')."&units=metric&appid={$apiKey}",
+            // "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-3 day')."&units=metric&appid={$apiKey}",
+            // "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-4 day')."&units=metric&appid={$apiKey}",
+            // "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-5 day')."&units=metric&appid={$apiKey}",
         ]);
 
         foreach($res as $day) {
@@ -61,7 +64,6 @@ class Weather
                 'day' => date("D", $day->current->dt)
             ]);
         }
-        
     }
 
     public function getForecast()

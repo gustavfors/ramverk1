@@ -19,7 +19,8 @@ return [
             "lang" => "sv",
             "stylesheets" => [
                 "css/dbwebb-se.min.css",
-                "css/custom.css"
+                "css/custom.css",
+                "https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
             ],
             "javascripts" => [
                 "js/responsive-menu.js",

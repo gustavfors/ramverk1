@@ -5,6 +5,7 @@ namespace Gufo\Controller;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 use Gufo\Model\Weather;
+use Gufo\Model\IpAddress;
 
 /**
  * A sample controller to show how a controller class can be implemented.
@@ -29,16 +30,27 @@ class WeatherController implements ContainerInjectableInterface
 
     public function indexActionGet()
     {
-        if ($this->di->request->getGet('location')) {
 
-            $weather = new Weather("213123", "3213123");
+
+        if ($this->di->request->getGet('ipAddress')) {
+
+            $ipAddress = new IpAddress($this->di->request->getGet('ipAddress'));
+            $data = $ipAddress->data();
+
+            if (!$data['valid']) {
+                die("not a valid ip address.");
+            }
+
+            $weather = new Weather($data['latitude'], $data['longitude']);
 
             $forecast = $weather->getForecast();
             $history = $weather->getHistory();
 
             $this->page->add('weather/show', [
                 'forecast' => $forecast,
-                'history' => $history
+                'history' => $history,
+                'longitude' => $data['longitude'],
+                'latitude' => $data['latitude']
             ]);
 
         } else {
