@@ -13,8 +13,6 @@ class DevelopmentController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
-
-
     /**
      * Render views that are supported.
      *

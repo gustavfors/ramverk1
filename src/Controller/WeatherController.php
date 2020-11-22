@@ -34,9 +34,11 @@ class WeatherController implements ContainerInjectableInterface
             $weather = new Weather("213123", "3213123");
 
             $forecast = $weather->getForecast();
+            $history = $weather->getHistory();
 
             $this->page->add('weather/show', [
-                'forecast' => $forecast
+                'forecast' => $forecast,
+                'history' => $history
             ]);
 
         } else {

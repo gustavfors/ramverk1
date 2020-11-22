@@ -45,3 +45,29 @@ namespace Anax\View;
 </div>
 
 <h1>Weather History</h1>
+
+<div class="weather-forecast">
+    <?php foreach($history as $day): ?>
+        <div class="weather-forecast-item">
+            
+            <div class="weather-forecast-flex-item">
+                <div><?= $day['day']; ?></div>
+                <div><?= $day['date']; ?></div>
+                
+            </div>
+            <div class="weather-forecast-item-box">
+                
+                
+                <div class="weather">
+                    <?= $day['weather']; ?>
+                </div>
+                <div class="weather-icon">
+                    <img src="http://openweathermap.org/img/wn/<?= $day['weather-icon']; ?>@2x.png" alt="<?= $day['weather']; ?>">
+                </div>
+                <div class="temp">
+                    <?= $day['temp']; ?>°C
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
