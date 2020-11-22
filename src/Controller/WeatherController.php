@@ -4,11 +4,7 @@ namespace Gufo\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use Gufo\Model\IpAddress;
-
-// use Anax\Route\Exception\ForbiddenException;
-// use Anax\Route\Exception\NotFoundException;
-// use Anax\Route\Exception\InternalErrorException;
+use Gufo\Model\Weather;
 
 /**
  * A sample controller to show how a controller class can be implemented.
@@ -19,7 +15,7 @@ use Gufo\Model\IpAddress;
  *
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class ApiController implements ContainerInjectableInterface
+class WeatherController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
@@ -28,25 +24,25 @@ class ApiController implements ContainerInjectableInterface
     public function initialize() : void
     {
         $this->db = "active";
+        $this->page = $this->di->get("page");
     }
 
-    public function ipActionPost()
+    public function indexActionGet()
     {
-        if ($this->di->request->getPost('address')) {
-            $ipAddress = new IpAddress($this->di->request->getPost('address'));
-            return [$ipAddress->data()];
+        if ($this->di->request->getGet('location')) {
+
+            $weather = new Weather("213123", "3213123");
+
+            $forecast = $weather->getForecast();
+
+            $this->page->add('weather/show', [
+                'forecast' => $forecast
+            ]);
+
+        } else {
+            $this->page->add('weather/index');
         }
-        
-        return "no address specified.";
-    }
 
-    public function weatherActionGet()
-    {
-        $data = [
-            'name' => 'gustav',
-            'age' => 27
-        ];
-
-        return [[$data]];
+        return $this->page->render(["title" => "Weather"]);
     }
 }

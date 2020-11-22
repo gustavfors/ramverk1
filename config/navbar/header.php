@@ -49,6 +49,11 @@ return [
             "title" => "Validate IP",
         ],
         [
+            "text" => "Weather",
+            "url" => "weather",
+            "title" => "Weather Info",
+        ],
+        [
             "text" => "Verktyg",
             "url" => "verktyg",
             "title" => "Verktyg och möjligheter för utveckling.",

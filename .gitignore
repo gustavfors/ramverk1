@@ -3,4 +3,5 @@
 /vendor
 memory::
 composer.lock
-secrets.txt
+ipapi.txt
+weatherapi.txt
