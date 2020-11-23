@@ -18,7 +18,7 @@ class Weather
         $this->lat = $lat;
         $this->lon = $lon;
         $this->curl = $curl;
-        $this->apiKey = file_get_contents(ANAX_INSTALL_PATH . "/weatherapi.txt");
+        $this->apiKey = file_get_contents(ANAX_INSTALL_PATH . "/config/weatherapi.txt");
 
         $this->forecast();
         $this->history();

@@ -55,7 +55,7 @@ class IpAddress
 
     public function geoLocate()
     {
-        $apiKey = file_get_contents(ANAX_INSTALL_PATH . "/ipapi.txt");
+        $apiKey = file_get_contents(ANAX_INSTALL_PATH . "/config/ipapi.txt");
 
         $results = file_get_contents("http://api.ipstack.com/{$this->data['ipAddress']}?{$apiKey}");
         $results = json_decode($results, "assoc");

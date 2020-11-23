@@ -3,5 +3,5 @@
 /vendor
 memory::
 composer.lock
-ipapi.txt
-weatherapi.txt
+config/weatherapi.txt
+config/ipapi.txt
