@@ -11,14 +11,19 @@ class WeatherTest extends TestCase
 {
     public function testConstructor()
     {
-        $res = new Weather(56.16156, 15.58661);
+
+        $curl = new Curl();
+
+        $res = new Weather(56.16156, 15.58661, $curl);
 
         $this->assertInstanceOf(Weather::class, $res);
     }
 
     public function testGetHistory()
     {
-        $weather = new Weather(56.16156, 15.58661);
+        $curl = new Curl();
+
+        $weather = new Weather(56.16156, 15.58661, $curl);
 
         $res = $weather->getHistory();
 
@@ -27,7 +32,9 @@ class WeatherTest extends TestCase
 
     public function testGetForecast()
     {
-        $weather = new Weather(56.16156, 15.58661);
+        $curl = new Curl();
+
+        $weather = new Weather(56.16156, 15.58661, $curl);
 
         $res = $weather->getForecast();
 
@@ -36,7 +43,9 @@ class WeatherTest extends TestCase
 
     public function testGetAll()
     {
-        $weather = new Weather(56.16156, 15.58661);
+        $curl = new Curl();
+
+        $weather = new Weather(56.16156, 15.58661, $curl);
 
         $res = $weather->getAll();
 

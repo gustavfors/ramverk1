@@ -51,7 +51,7 @@ class ApiController implements ContainerInjectableInterface
                 return [["message" => 'not a valid ip address.']];
             }
 
-            $weather = new Weather($data['latitude'], $data['longitude']);
+            $weather = new Weather($data['latitude'], $data['longitude'], $this->di->get('curl'));
 
             return [$weather->getAll()];
         }

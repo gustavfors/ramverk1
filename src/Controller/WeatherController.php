@@ -35,7 +35,7 @@ class WeatherController implements ContainerInjectableInterface
             $data = $ipAddress->data();
 
             if (!$data['valid']) {
-                die("not a valid ip address.");
+                return "not a valid ip address.";
             }
 
             $weather = new Weather($data['latitude'], $data['longitude'], $this->di->get('curl'));
