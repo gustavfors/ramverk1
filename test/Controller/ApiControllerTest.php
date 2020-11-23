@@ -79,4 +79,13 @@ class ApiControllerTest extends TestCase
 
         $this->assertEquals($res[0]['message'], "not a valid ip address.");
     }
+
+    public function testWeatherActionGetLocalAddress()
+    {
+        $this->di->request->setGet('ipAddress', '127.0.0.1');
+
+        $res = $this->controller->weatherActionGet();
+
+        $this->assertEquals($res[0]['message'], "You have provided a valid ip address, but weather/locational data can not be extracted from it.");
+    }
 }

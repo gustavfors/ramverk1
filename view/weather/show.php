@@ -3,16 +3,22 @@
 namespace Anax\View;
 
 ?>
+
+
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
 
 <h1>Weather</h1>
 <p>Enter an IP Address and recieve weather information!</p>
 <form action="">
-    <input type="text" name="ipAddress" placeholder="ip...">
+    <input type="text" name="ipAddress" placeholder="ip..." value="<?= $ipAddress; ?>">
     <button type="submit">Show</button>
 </form>
 
 <h1>Location:</h1>
+<p>Country: <?= $country; ?></p>
+<p>Region: <?= $region; ?></p>
+<p>City: <?= $city; ?></p>
+<p>Position: <?= $latitude; ?>, <?= $longitude; ?></p>
 
 <div class="map-container">
 

@@ -51,9 +51,26 @@ class ApiController implements ContainerInjectableInterface
                 return [["message" => 'not a valid ip address.']];
             }
 
+            if ($data['latitude'] == null || $data['longitude'] == null) {
+                return [["message" => 'You have provided a valid ip address, but weather/locational data can not be extracted from it.']];
+            }
+
             $weather = new Weather($data['latitude'], $data['longitude'], $this->di->get('curl'));
 
-            return [$weather->getAll()];
+            $locationInfo = [
+                'location' => [
+                    'country' => $data['country_name'],
+                    'region' => $data['region_name'],
+                    'city' => $data['city'],
+                    'longitude' => $data['longitude'],
+                    'latitude' => $data['latitude'],
+                    'weather' => [
+                        $weather->getAll()
+                    ]
+                ]
+            ];
+
+            return [$locationInfo];
         }
 
         return [["message" => 'no ip address specified.']];

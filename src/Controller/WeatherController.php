@@ -35,7 +35,19 @@ class WeatherController implements ContainerInjectableInterface
             $data = $ipAddress->data();
 
             if (!$data['valid']) {
-                return "not a valid ip address.";
+                $this->page->add('weather/error', [
+                    'message' => "You have provided an invalid ip address.",
+                    'ipAddress' => $this->di->request->getGet('ipAddress') ?? ''
+                ]);
+                return $this->page->render(["title" => "WeatherError"]);
+            }
+
+            if ($data['latitude'] == null || $data['longitude'] == null) {
+                $this->page->add('weather/error', [
+                    'message' => "You have provided a valid ip address, but weather/locational data can not be extracted from it.",
+                    'ipAddress' => $this->di->request->getGet('ipAddress') ?? ''
+                ]);
+                return $this->page->render(["title" => "WeatherError"]);
             }
 
             $weather = new Weather($data['latitude'], $data['longitude'], $this->di->get('curl'));
@@ -47,7 +59,11 @@ class WeatherController implements ContainerInjectableInterface
                 'forecast' => $forecast,
                 'history' => $history,
                 'longitude' => $data['longitude'],
-                'latitude' => $data['latitude']
+                'latitude' => $data['latitude'],
+                'country' => $data['country_name'],
+                'region' => $data['region_name'],
+                'city' => $data['city'],
+                'ipAddress' => $this->di->request->getGet('ipAddress') ?? ''
             ]);
         } else {
             $this->page->add('weather/index');

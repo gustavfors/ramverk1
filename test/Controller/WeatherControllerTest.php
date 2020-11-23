@@ -55,12 +55,21 @@ class WeatherControllerTest extends TestCase
         $this->assertInstanceOf(ResponseUtility::class, $res);
     }
 
+    public function testWeatherActionGetWithLocalAddress()
+    {
+        $this->di->request->setGet('ipAddress', '127.0.0.1');
+
+        $res = $this->controller->IndexActionGet();
+
+        $this->assertInstanceOf(ResponseUtility::class, $res);
+    }
+
     public function testWeatherActionGetWithInvalidAddress()
     {
         $this->di->request->setGet('ipAddress', 'dsadsad');
 
         $res = $this->controller->IndexActionGet();
 
-        $this->assertEquals($res, "not a valid ip address.");
+        $this->assertInstanceOf(ResponseUtility::class, $res);
     }
 }
