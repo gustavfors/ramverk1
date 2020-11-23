@@ -48,10 +48,10 @@ class Weather
     {
         $res = $this->curl->mcurl([
             "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat={$this->lat}&lon={$this->lon}&dt=".strtotime('-1 day')."&units=metric&appid={$this->apiKey}",
-            // "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-2 day')."&units=metric&appid={$apiKey}",
-            // "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-3 day')."&units=metric&appid={$apiKey}",
-            // "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-4 day')."&units=metric&appid={$apiKey}",
-            // "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-5 day')."&units=metric&appid={$apiKey}",
+            "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat={$this->lat}&lon={$this->lon}&dt=".strtotime('-2 day')."&units=metric&appid={$this->apiKey}",
+            "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat={$this->lat}&lon={$this->lon}&dt=".strtotime('-3 day')."&units=metric&appid={$this->apiKey}",
+            "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat={$this->lat}&lon={$this->lon}&dt=".strtotime('-4 day')."&units=metric&appid={$this->apiKey}",
+            "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat={$this->lat}&lon={$this->lon}&dt=".strtotime('-5 day')."&units=metric&appid={$this->apiKey}",
         ]);
 
         foreach ($res as $day) {
