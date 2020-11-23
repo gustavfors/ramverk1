@@ -38,7 +38,7 @@ namespace Anax\View;
 <h1>Weather Forecast</h1>
 
 <div class="weather-forecast">
-    <?php foreach($forecast as $day): ?>
+    <?php foreach ($forecast as $day) : ?>
         <div class="weather-forecast-item">
             
             <div class="weather-forecast-flex-item">
@@ -47,8 +47,6 @@ namespace Anax\View;
                 
             </div>
             <div class="weather-forecast-item-box">
-                
-                
                 <div class="weather">
                     <?= $day['weather']; ?>
                 </div>
@@ -70,7 +68,7 @@ namespace Anax\View;
 <h1>Weather History</h1>
 
 <div class="weather-forecast">
-    <?php foreach($history as $day): ?>
+    <?php foreach ($history as $day) : ?>
         <div class="weather-forecast-item">
             
             <div class="weather-forecast-flex-item">

@@ -30,10 +30,7 @@ class WeatherController implements ContainerInjectableInterface
 
     public function indexActionGet()
     {
-
-
         if ($this->di->request->getGet('ipAddress')) {
-
             $ipAddress = new IpAddress($this->di->request->getGet('ipAddress'));
             $data = $ipAddress->data();
 
@@ -41,7 +38,7 @@ class WeatherController implements ContainerInjectableInterface
                 die("not a valid ip address.");
             }
 
-            $weather = new Weather($data['latitude'], $data['longitude']);
+            $weather = new Weather($data['latitude'], $data['longitude'], $this->di->get('curl'));
 
             $forecast = $weather->getForecast();
             $history = $weather->getHistory();
@@ -52,7 +49,6 @@ class WeatherController implements ContainerInjectableInterface
                 'longitude' => $data['longitude'],
                 'latitude' => $data['latitude']
             ]);
-
         } else {
             $this->page->add('weather/index');
         }

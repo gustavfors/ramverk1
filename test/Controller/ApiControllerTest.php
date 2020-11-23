@@ -43,7 +43,7 @@ class ApiControllerTest extends TestCase
     {
         $res = $this->controller->ipActionPost();
 
-        $this->assertEquals($res, "no address specified.");
+        $this->assertEquals($res[0]['message'], "no ip address specified.");
     }
 
     public function testIpActionPostAddress()
@@ -53,5 +53,30 @@ class ApiControllerTest extends TestCase
         $res = $this->controller->ipActionPost();
 
         $this->assertInternalType("array", $res);
+    }
+
+    public function testWeatherActionGetNoAddress()
+    {
+        $res = $this->controller->weatherActionGet();
+
+        $this->assertEquals($res[0]['message'], "no ip address specified.");
+    }
+
+    public function testWeatherActionGetValidAddress()
+    {
+        $this->di->request->setGet('ipAddress', '194.47.150.9');
+
+        $res = $this->controller->weatherActionGet();
+
+        $this->assertInternalType("array", $res);
+    }
+
+    public function testWeatherActionGetInvalidAddress()
+    {
+        $this->di->request->setGet('ipAddress', 'dsadsadsa');
+
+        $res = $this->controller->weatherActionGet();
+
+        $this->assertEquals($res[0]['message'], "not a valid ip address.");
     }
 }

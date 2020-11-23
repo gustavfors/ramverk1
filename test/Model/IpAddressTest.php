@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test the SampleController.
  */
-class ApiControllerTest extends TestCase
+class IpAddressTest extends TestCase
 {
     public function testConstructorValidIpv4()
     {

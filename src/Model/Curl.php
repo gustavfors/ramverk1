@@ -1,9 +1,9 @@
 <?php
 namespace Gufo\Model;
 
-class MCurl
+class Curl
 {
-    public static function get($urls)
+    public function mcurl($urls)
     {
         $data = [];
         
@@ -50,8 +50,8 @@ class MCurl
         }
         
         // Close the multi-handle and return our results
-       curl_multi_close($multi);
+        curl_multi_close($multi);
 
-       return $data;
+        return $data;
     }
 }

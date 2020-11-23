@@ -5,6 +5,7 @@ namespace Gufo\Controller;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 use Gufo\Model\IpAddress;
+use Gufo\Model\Weather;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -37,16 +38,24 @@ class ApiController implements ContainerInjectableInterface
             return [$ipAddress->data()];
         }
         
-        return "no address specified.";
+        return [["message" => 'no ip address specified.']];
     }
 
     public function weatherActionGet()
     {
-        $data = [
-            'name' => 'gustav',
-            'age' => 27
-        ];
+        if ($this->di->request->getGet('ipAddress')) {
+            $ipAddress = new IpAddress($this->di->request->getGet('ipAddress'));
+            $data = $ipAddress->data();
 
-        return [[$data]];
+            if (!$data['valid']) {
+                return [["message" => 'not a valid ip address.']];
+            }
+
+            $weather = new Weather($data['latitude'], $data['longitude']);
+
+            return [$weather->getAll()];
+        }
+
+        return [["message" => 'no ip address specified.']];
     }
 }

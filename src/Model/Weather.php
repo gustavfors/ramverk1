@@ -5,16 +5,20 @@ class Weather
 {
     protected $lat;
     protected $lon;
+    protected $curl;
+    protected $apiKey;
 
     protected $weather = [
         'forecast' => [],
         'history' => []
     ];
 
-    public function __construct($lat, $lon)
+    public function __construct($lat, $lon, $curl)
     {
         $this->lat = $lat;
         $this->lon = $lon;
+        $this->curl = $curl;
+        $this->apiKey = file_get_contents(ANAX_INSTALL_PATH . "/weatherapi.txt");
 
         $this->forecast();
         $this->history();
@@ -22,13 +26,11 @@ class Weather
 
     private function forecast()
     {
-        $apiKey = file_get_contents(ANAX_INSTALL_PATH . "/weatherapi.txt");
-
-        $res = MCurl::get([
-            "https://api.openweathermap.org/data/2.5/onecall?lat={$this->lat}&lon={$this->lon}&units=metric&exclude=hourly,minutely,current&appid={$apiKey}"
+        $res = $this->curl->mcurl([
+            "https://api.openweathermap.org/data/2.5/onecall?lat={$this->lat}&lon={$this->lon}&units=metric&exclude=hourly,minutely,current&appid={$this->apiKey}"
         ]);
 
-        foreach($res[0]->daily as $day) {
+        foreach ($res[0]->daily as $day) {
             array_push($this->weather['forecast'], [
                 'date' => date("yy-m-d", $day->dt),
                 'temp' => $day->temp->day,
@@ -44,17 +46,15 @@ class Weather
 
     private function history()
     {
-        $apiKey = file_get_contents(ANAX_INSTALL_PATH . "/weatherapi.txt");
-
-        $res = MCurl::get([
-            "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat={$this->lat}&lon={$this->lon}&dt=".strtotime('-1 day')."&units=metric&appid={$apiKey}",
+        $res = $this->curl->mcurl([
+            "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat={$this->lat}&lon={$this->lon}&dt=".strtotime('-1 day')."&units=metric&appid={$this->apiKey}",
             // "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-2 day')."&units=metric&appid={$apiKey}",
             // "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-3 day')."&units=metric&appid={$apiKey}",
             // "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-4 day')."&units=metric&appid={$apiKey}",
             // "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=56.16156&lon=15.58661&dt=".strtotime('-5 day')."&units=metric&appid={$apiKey}",
         ]);
 
-        foreach($res as $day) {
+        foreach ($res as $day) {
             array_push($this->weather['history'], [
                 'date' => date("yy-m-d", $day->current->dt),
                 'temp' => $day->current->temp,
@@ -76,4 +76,8 @@ class Weather
         return $this->weather['history'];
     }
 
+    public function getAll()
+    {
+        return $this->weather;
+    }
 }
