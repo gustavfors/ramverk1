@@ -12,7 +12,7 @@
     },
     "require": {
         "anax/anax-ramverk1-me": "^1.0.0",
-        "gustavfors/weather-module": "^2.0.2",
+        "gustavfors/weather-module": "^2.0.5",
         "symfony/dotenv": "^5.2"
     },
     "require-dev": {
