@@ -12,7 +12,8 @@
     },
     "require": {
         "anax/anax-ramverk1-me": "^1.0.0",
-        "gustavfors/weather-module": "^1.0"
+        "gustavfors/weather-module": "^2.0.2",
+        "symfony/dotenv": "^5.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^7"
