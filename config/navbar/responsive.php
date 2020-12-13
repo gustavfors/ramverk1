@@ -70,6 +70,11 @@ return [
             "title" => "Weather Info",
         ],
         [
+            "text" => "Book",
+            "url" => "book",
+            "title" => "Book",
+        ],
+        [
             "text" => "Verktyg",
             "url" => "verktyg",
             "title" => "Verktyg och möjligheter för utveckling.",
