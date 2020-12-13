@@ -33,25 +33,23 @@ class UpdateForm extends FormModel
                     "readonly" => true,
                     "value" => $book->id,
                 ],
-
-                "column1" => [
+                "image" => [
                     "type" => "text",
                     "validation" => ["not_empty"],
-                    "value" => $book->column1,
                 ],
-
-                "column2" => [
+                "title" => [
                     "type" => "text",
                     "validation" => ["not_empty"],
-                    "value" => $book->column2,
                 ],
-
+                "author" => [
+                    "type" => "text",
+                    "validation" => ["not_empty"],
+                ],
                 "submit" => [
                     "type" => "submit",
                     "value" => "Save",
                     "callback" => [$this, "callbackSubmit"]
                 ],
-
                 "reset" => [
                     "type"      => "reset",
                 ],
@@ -65,7 +63,7 @@ class UpdateForm extends FormModel
      * Get details on item to load form with.
      *
      * @param integer $id get details on item with id.
-     * 
+     *
      * @return Book
      */
     public function getItemDetails($id) : object
@@ -89,8 +87,9 @@ class UpdateForm extends FormModel
         $book = new Book();
         $book->setDb($this->di->get("dbqb"));
         $book->find("id", $this->form->value("id"));
-        $book->column1 = $this->form->value("column1");
-        $book->column2 = $this->form->value("column2");
+        $book->image = $this->form->value("image");
+        $book->title = $this->form->value("title");
+        $book->author = $this->form->value("author");
         $book->save();
         return true;
     }
